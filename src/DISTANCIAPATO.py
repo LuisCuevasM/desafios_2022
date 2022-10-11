@@ -14,7 +14,7 @@ class Template(object):
 		super(Template, self).__init__()
 		self.args = args
 		#suscribir a rect
-		self.Sub_Cam = rospy.Subscriber("/duckiebot/camera_node/image/rec", Image, self.procesar_img)
+		self.Sub_Cam = rospy.Subscriber("/duckiebot/camera_node/image/raw", Image, self.procesar_img)
 		self.pub_img = rospy.Publisher("/duckiebot/camera_node/image/cooked", Image, queue_size = 10)
 		self.pub_img2 = rospy.Publisher("/duckiebot/camera_node/image/detec", Image, queue_size = 1)
 		self.pub_pos = rospy.Publisher("/duckiebot/posicionPato", Point, queue_size = 1)#(x,y,z) #hpato=31 mm 
