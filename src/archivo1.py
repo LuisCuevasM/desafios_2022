@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import time
 import rospy #importar ros para python
 from std_msgs.msg import String, Int32 #importa mensajes de ROS tipo String y Int32
 from sensor_msgs.msg import Joy # impor mensaje tipo Joy
@@ -24,7 +24,7 @@ class Template(object):
 		y = msg.axes[1]
                 x = msg.axes[0]
                 z = msg.axes[3]
-
+                lista = [y,x,z]
 		print(y, x, z)
 		self.twist.omega = z*-10
 		self.twist.v = y 
@@ -32,12 +32,14 @@ class Template(object):
 		if a == 1:
 			self.twist.omega = 0
 			self.twist.v = 0 
-		
+
 		self.publi.publish(self.twist)
 		
-
-
-
+         	#Se genera un archivo de texto para guardar velocidades
+        	archivo = open("vel.txt", "a") 		
+         	archivo.write( str(y) +',' +str(x) +','+ str(z) + '\n' ) 
+		archivo.close()
+		
 
 def main():
 	rospy.init_node('test') #creacion y registro del nodo!
